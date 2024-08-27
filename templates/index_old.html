@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <a class="new-game-button" href="/new_game">New Game</a>
+
+    <!-- Handle Errors  -->
+    {% if errors %}
+        <div id="error-header" class="errors">Error: {{ errors }}
+            <img id="close-button" class="close-button" src="{{ url_for('static', filename='assets/close.png') }}">
+        </div>
+    {% endif %}
+
+
+    <!-- Displays round -->
+    <div class="round-container">
+
+        <span class="point-container">
+            {% if game_status.round_winner == 'gpt' %}
+            <div class="round-winner">Round winner 🥳</div>
+            {% endif %}
+            GPT: {{ game_status.gpt_points }}
+        </span>
+        <span class="point-container">
+            {% if game_status.round_winner == 'tie' %}
+            <div class="round-winner">Tie 🤪</div>
+            {% endif %}
+            {% if game_status.is_complete %}
+            <div class="round-winner">Game Winner: {{ game_status.game_winner }}</div>
+            {% endif %}
+            Round: {{ game_status.round }}
+        </span>
+        <span class="point-container">
+            {% if game_status.round_winner == 'user' %}
+            <div class="round-winner">Round winner 🥳</div>
+            {% endif %}
+            You: {{ game_status.user }}
+        </span>
+    </div>
+
+    <!-- Main components of the game. -->
+    <div class="game-section">
+
+        <div class="gpt-section">
+            <div class="gpt-wrapper">
+                <img style="width: 150px; height: 150px;" src="{{ url_for('static', filename='assets/gpt.png') }}">
+                <!-- GPT Choices -->
+                {% if game_status.gpt_choice %}
+                <div class="decisions">
+                    <span>GPT Chose: {{ game_status.gpt_choice }}</span>
+                    {% if game_status.gpt_choice == 'rock' %}
+                        <img class="rps-icon" src="{{ url_for('static', filename='assets/rock.svg') }}">
+                    {% endif %}
+                    {% if game_status.gpt_choice == 'paper' %}
+                    <img class="rps-icon" src="{{ url_for('static', filename='assets/paper.jpg') }}">
+                    {% endif %}
+                    {% if game_status.gpt_choice == 'scissors' %}
+                        <img class="rps-icon" src="{{ url_for('static', filename='assets/scissors.svg') }}">
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+
+        <div class="chat-box">
+            {% for convo in game_status.conversation %}
+                {% if convo.who == 'gpt' %}
+                <span class="text-box gpt-text"> {{ convo.comment }} </span>
+                {% endif %}
+                {% if convo.who == 'user' %}
+                <div class="user-text-wrapper"><span class="text-box user-text">{{ convo.comment }}</span></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- This is the user section is. Here is where we will process all user input. -->
+        <div class="user-section">
+            <form action="/" method="post">
+                <div class="form-wrapper">
+                    <div>
+                        <input type="radio" id="rock" name="choice" value="rock">
+                        <label for="rock">Rock 🗿</label><br>
+                    </div>
+                    <div>
+                        <input type="radio" id="paper" name="choice" value="paper">
+                        <label for="paper">Paper 📃</label><br>
+                    </div>
+                    <div>
+                        <input type="radio" id="scissors" name="choice" value="scissors">
+                        <label for="scissors">Scissors</label>
+                    </div>
+
+                    <span style="text-overflow: clip;">Got anything you want to say to GPT? </span>
+                    <textarea type="text" id="talk-back" name="talk-back" class="talk-back-text"></textarea>
+                    
+                    <input id="talk-back-submit" type="submit" value="Submit">
+                </div>
+            </form>
+
+            {% if game_status.user_choice %}
+            <div class="decisions" style="background-color: cornflowerblue;">
+                <span>You chose: {{ game_status.user_choice }}</span>
+                {% if game_status.user_choice == 'rock' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/rock.svg') }}">
+                {% endif %}
+                {% if game_status.user_choice == 'scissors' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/scissors.svg') }}">
+                {% endif %}
+                {% if game_status.user_choice == 'paper' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/paper.jpg') }}">
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+   
+    <script src="{{url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

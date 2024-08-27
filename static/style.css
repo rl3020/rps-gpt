@@ -1,0 +1,352 @@
+body {
+  background-color: #004ba2;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.errors {
+  background-color: lightcoral;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  min-height: 80px;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  width: 100%;
+  z-index: 200;
+}
+
+/* New game stylings. */
+
+.new-game-button {
+  background-color: #daedff;
+  border-radius: 10px;
+  color: black;
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 14px;
+
+  top: 3%;
+  right: 20px;
+
+  text-decoration: none;
+  padding: 10px;
+  width: fit-content;
+}
+
+.close-button {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+/* Score and round section */
+.round-container {
+  background-color: #daedff;
+  border-bottom: solid white 1px;
+  border-radius: 20px;
+  color: black;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  font-size: 20px;
+  padding: 20px;
+  height: fit-content;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 8%;
+  width: 75%;
+  z-index: 10;
+}
+
+.round-result {
+  top: 15%;
+  z-index: 10;
+}
+
+.clouds {
+  position: absolute;
+  height: 180px;
+  width: 150px;
+  z-index: 8;
+}
+
+.cloud1 {
+  top: 6%;
+  left: 10%;
+}
+
+.cloud2 {
+  top: 15%;
+  left: 35%;
+}
+
+.cloud3 {
+  top: 5%;
+  left: 65%;
+}
+
+.point-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 200px;
+}
+
+/* GPT battleground stylings */
+.gpt-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 18%;
+  right: 5%;
+  z-index: 10;
+}
+
+.gpt-choice {
+  position: absolute;
+  left: -10%;
+  bottom: -10%;
+  z-index: 20;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: aqua; */
+  position: relative;
+}
+
+.avatar-image {
+  height: 150px;
+  width: 150px;
+  z-index: 20;
+}
+
+.ground {
+  background-color: #d9d9d9;
+  clip-path: ellipse(200px 40px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100px;
+  width: 400px;
+  z-index: 2;
+}
+
+.hover-line {
+  background-color: grey;
+  border-radius: 50%;
+  clip-path: ellipse(50px 5px);
+  height: 10px;
+  width: 40%;
+}
+
+/* User Stylings */
+.user-container {
+  position: absolute;
+  left: 5%;
+  bottom: 35%;
+}
+
+.user-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.user-avatar {
+  position: absolute;
+  top: -180%;
+  height: 300px;
+  width: 300px;
+  z-index: 100;
+}
+
+.user-choice {
+  position: absolute;
+  right: -14%;
+  top: -75%;
+  z-index: 7;
+}
+
+/* Game section container */
+.game-section {
+  background-color: #438822;
+  color: white;
+  font-size: 20px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding-bottom: 20px;
+  position: absolute;
+  bottom: 0;
+
+  height: 60%;
+  width: 100%;
+}
+
+/* Chat box container */
+.chat-box-wrapper {
+  background-color: white;
+  border: solid #b5b5b5 8px;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 200px;
+  padding: 20px 20px;
+  width: 40%;
+  z-index: 8;
+}
+
+.chat-box {
+  background-color: white;
+  color: black;
+
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  height: 70%;
+  width: 100%;
+
+  overflow-y: scroll;
+}
+
+.chat-text-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.user-text-section {
+  color: black;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#user-trash-talk {
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 70%;
+}
+
+#trash-talk-submit {
+  background-color: #b0cad6;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 20%;
+}
+
+#trash-talk-submit:hover {
+  cursor: pointer;
+}
+
+/* User input stylings */
+.user-section {
+  background-color: white;
+  border: solid #76c9ef 8px;
+  border-radius: 8px;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  position: relative;
+  height: 200px;
+  width: 40%;
+  z-index: 100;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.form-button {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.form-button:hover {
+  background-color: #76c9ef;
+}
+
+input[type="radio"]:hover {
+  cursor: pointer;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+#choice-submit {
+  box-sizing: border-box;
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 10px;
+
+  font-size: 20px;
+  padding: 10px 40px;
+}
+
+#choice-submit:hover {
+  box-sizing: border-box;
+  border: solid #d9d9d9 2px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.rps-icon {
+  height: 120px;
+  width: 120px;
+}

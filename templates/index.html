@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- New game button (pos: absolute)-->
+    <a class="new-game-button" href="/new_game">New Game</a>
+    <img class="clouds cloud1" src="{{ url_for('static', filename='assets/clouds.png') }}">
+    <img class="clouds cloud2" src="{{ url_for('static', filename='assets/clouds.png') }}">
+    <img class="clouds cloud3" src="{{ url_for('static', filename='assets/clouds.png') }}">
+
+    <!-- Handle Errors -->
+    {% if errors %}
+        <div id="error-header" class="errors">Error: {{ errors }}
+            <img id="close-button" class="close-button" src="{{ url_for('static', filename='assets/close.png') }}">
+        </div>
+    {% endif %}
+
+    <!-- Displays rounds and gpt, user points (pos: absolute)-->
+    <div class="round-container">
+        <span class="point-container"> 
+            GPT:
+            <span>{{ game_status.gpt_points }}</span>
+        </span>
+        <span class="point-container">
+            Round: 
+            <span>{{ game_status.round }}</span>
+        </span>
+        <span class="point-container">
+            You: 
+            <span>{{ game_status.user }}</span>
+        </span>
+    </div>
+    <div class="round-result">
+        <span>sup</span>
+    </div>
+
+    <!-- GPT opponent -->
+    <div class="gpt-container">
+        <div class="content-wrapper">
+            <img class="avatar-image" src="{{ url_for('static', filename='assets/gpt.png') }}">
+            <div class="ground">
+                <div class="hover-line"></div>
+            </div>
+            <div class="gpt-choice">
+                {% if game_status.gpt_choice == 'scissors' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/scissors.svg') }}">
+                {% endif %}
+                {% if game_status.gpt_choice == 'rock' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/rock.svg') }}">
+                {% endif %}
+                {% if game_status.gpt_choice == 'paper' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/paper.jpg') }}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- User/turtle wrapper -->
+    <div class="user-container">
+        <div class="user-content-wrapper">
+            <img class="user-avatar" src="{{ url_for('static', filename='assets/turtle.png') }}">
+            <div class="ground">
+                <div class="hover-line"></div>
+            </div>
+            <div class="user-choice">
+                {% if game_status.user_choice == 'scissors' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/scissors.svg') }}">
+                {% endif %}
+                {% if game_status.user_choice == 'rock' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/rock.svg') }}">
+                {% endif %}
+                {% if game_status.user_choice == 'paper' %}
+                <img class="rps-icon" src="{{ url_for('static', filename='assets/paper.jpg') }}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main components of the game. -->
+    <div class="game-section">
+        <!-- Chat section. -->
+        <div class="chat-box-wrapper">
+            <!-- load the chat via js-->
+            <div id="chat-box" class="chat-box" data-conversation='{{ game_status.conversation | tojson }}'>
+            </div>
+            <div class="user-text-section">
+                <input type="text" name="user-trash-talk" id="user-trash-talk" placeholder="Talk some trash to GPT...">
+                <button type="submit" id="trash-talk-submit">Send</button>
+            </div>
+        </div>
+
+        <!-- This is the user section is. Here user enters rock, paper, or scissors. -->
+        <div class="user-section">
+            {% if not game_status.is_complete %}
+            <form action="/submit_choice" method="post">
+                <div class="form-wrapper">
+                    <div class="form-button-container">
+                        <div class="form-button">
+                            <input type="radio" id="rock" name="choice" value="rock">
+                            <label for="rock">Rock 🗿</label><br>
+                        </div>
+                        <div class="form-button">
+                            <input type="radio" id="paper" name="choice" value="paper">
+                            <label for="paper">Paper 📃</label><br>
+                        </div>
+                        <div class="form-button">
+                            <input type="radio" id="scissors" name="choice" value="scissors">
+                            <label for="scissors">Scissors</label>
+                        </div>
+                    </div>
+                    <input id="choice-submit" type="submit" value="Submit">
+                </div>
+            </form>
+            {% endif %}
+            {% if game_status.is_complete %}
+                {% if game_status.game_winner == "gpt" %}
+                <span>Game over... You lost :/ </span>
+                {% endif %}
+                {% if game_status.game_winner == "user" %}
+                <span>Congrats 🥳 you win!</span>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='js/script.js') }}"></script>
+    {% if errors %}
+    <!-- Handlers for errors -->
+    <script src="{{url_for('static', filename='js/error.js') }}"></script>
+    {% endif %}
+</body>
+
+</html>
